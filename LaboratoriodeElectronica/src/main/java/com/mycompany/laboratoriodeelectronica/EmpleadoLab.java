@@ -1031,6 +1031,8 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
         }        
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+
         if(tipoEmpleado.getSelectedIndex() != 0){
             insertarEmpleado();
             //Mostrar(tablaEmpleado);
