@@ -30,6 +30,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -47,20 +48,30 @@ public class Menu extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 417, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
 
         jMenuBar1.setAlignmentX(1.0F);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(130, 60));
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(130, 24));
 
         jMenu1.setText("File");
+        jMenu1.setMaximumSize(new java.awt.Dimension(80, 32767));
         jMenu1.setPreferredSize(new java.awt.Dimension(100, 35));
         jMenuBar1.add(jMenu1);
 
+        jMenu5.setText("Empleado");
+        jMenu5.setPreferredSize(new java.awt.Dimension(80, 15));
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu5);
+
         jMenu2.setText("Equipo");
         jMenu2.setMinimumSize(new java.awt.Dimension(100, 55));
-        jMenu2.setPreferredSize(new java.awt.Dimension(100, 55));
+        jMenu2.setPreferredSize(new java.awt.Dimension(80, 30));
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
@@ -72,9 +83,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Alumno");
-        jMenu3.setMaximumSize(new java.awt.Dimension(200, 32767));
-        jMenu3.setMinimumSize(new java.awt.Dimension(100, 35));
-        jMenu3.setPreferredSize(new java.awt.Dimension(100, 35));
+        jMenu3.setMaximumSize(new java.awt.Dimension(90, 32767));
+        jMenu3.setMinimumSize(new java.awt.Dimension(70, 15));
+        jMenu3.setPreferredSize(new java.awt.Dimension(80, 35));
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu3MouseClicked(evt);
@@ -83,7 +94,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Materia");
-        jMenu4.setPreferredSize(new java.awt.Dimension(200, 35));
+        jMenu4.setPreferredSize(new java.awt.Dimension(80, 15));
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu4MouseClicked(evt);
@@ -112,27 +123,39 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
         Equipo menuEquipo = new Equipo();
+        //escritorio.removeAll();
         escritorio.add(menuEquipo);
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MousePressed
         // TODO add your handling code here:
          Equipo menuEquipo = new Equipo();
+         escritorio.removeAll();
+         //escritorio.paintAll(escritorio.getGraphics());
         escritorio.add(menuEquipo);
         menuEquipo.show();
     }//GEN-LAST:event_jMenu2MousePressed
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         Alumno menuAlumno=new Alumno();
-        escritorio.add(menuAlumno);
+        escritorio.removeAll();
+        escritorio.add(menuAlumno);        
         menuAlumno.show();
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         Materia menuMateria=new Materia();
+        escritorio.removeAll();
         escritorio.add(menuMateria);
         menuMateria.show();
     }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        EmpleadoLab formEmpleado = new EmpleadoLab();
+        escritorio.removeAll();
+        escritorio.add(formEmpleado);
+        formEmpleado.show();
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -175,6 +198,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,7 +27,7 @@ public class Alumno extends javax.swing.JInternalFrame {
         adeudoAlumno.setVisible(false);
     }
 
-         public void insertarAlumno()
+    public void insertarAlumno()
     {
         
         
@@ -233,7 +233,7 @@ public class Alumno extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Generación");
 
-        jLabel4.setText("Carreara");
+        jLabel4.setText("Carrera");
 
         jLabel5.setText("Adeudo");
 
@@ -334,10 +334,6 @@ public class Alumno extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12))
         );
 
-        jLabel4.getAccessibleContext().setAccessibleName("Carreara");
-
-        getAccessibleContext().setAccessibleName("Alumno");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -349,19 +345,28 @@ public class Alumno extends javax.swing.JInternalFrame {
     private void nombreAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreAlumnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreAlumnoActionPerformed
-
+    private void clearFormAlumno(){
+        claveAlumno.setText("");
+        nombreAlumno.setText("");
+        generacionAlumno.setText("");
+        carreraAlumno.setText("");
+        adeudoAlumno.setText("");
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           insertarAlumno();
+           insertarAlumno();           
            Mostrar(datosAlumno);
+           clearFormAlumno();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ModificarAlumno();
         Mostrar(datosAlumno);
+        clearFormAlumno();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        EliminarAlumno();
+       clearFormAlumno();
        Mostrar(datosAlumno);
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -19,7 +19,7 @@ public class Cconexion {
     
     String usuario = "postgres";
     String contrasenia = "postgres";
-    String bd = "LaboratorioElectronica";
+    String bd = "Laboratorio";
     String ip = "localhost";
     String Puerto = "5432";
     
