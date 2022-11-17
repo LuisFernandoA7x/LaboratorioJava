@@ -52,7 +52,7 @@ CREATE TABLE Persona.Becario
 CREATE TABLE Persona.Responsable
 (
 	RPE_Responsable BIGSERIAL NOT NULL,
-	Antiguedad DATE NOT NULL,
+	Antiguedad DATE,
 	Grado VARCHAR(20) NOT NULL,
 	Fecha_Inicio DATE NOT NULL,
 	Fecha_Fin DATE NOT NULL,
