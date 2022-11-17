@@ -34,6 +34,7 @@ CREATE TABLE Persona.Colaborador
 
 	CONSTRAINT FK_COLABRADOR FOREIGN KEY (RPE_Colaborador)
 		REFERENCES Persona.Empleado(RPE_Empleado)
+		ON UPDATE CASCADE
 		ON DELETE CASCADE			
 )
 
@@ -46,19 +47,20 @@ CREATE TABLE Persona.Becario
 
 	CONSTRAINT FK_BECARIO FOREIGN KEY (RPE_Becario)
 			REFERENCES Persona.Empleado(RPE_Empleado)
+			ON UPDATE CASCADE
 			ON DELETE CASCADE
 )
 
 CREATE TABLE Persona.Responsable
 (
-	RPE_Responsable BIGSERIAL NOT NULL,
-	Antiguedad DATE,
+	RPE_Responsable BIGSERIAL NOT NULL,	
 	Grado VARCHAR(20) NOT NULL,
 	Fecha_Inicio DATE NOT NULL,
 	Fecha_Fin DATE NOT NULL,
 
 	CONSTRAINT FK_RESPONSABLE FOREIGN KEY (RPE_Responsable)
 			REFERENCES Persona.Empleado(RPE_Empleado)
+			ON UPDATE CASCADE
 			ON DELETE CASCADE
 )
 
