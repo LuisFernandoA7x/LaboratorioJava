@@ -94,8 +94,8 @@ CREATE TABLE Aula.Sancion
 	Clave_Unica BIGSERIAL NOT NULL,
 	RPE_Empleado BIGINT NOT NULL,
 	Descripcion VARCHAR(50) NOT NULL,
-	F_liquidacion DATE NOT NULL,
 	Fecha DATE NOT NULL,
+	F_liquidacion DATE NOT NULL,
 	Monto BIGINT NOT NULL,
 
 	CONSTRAINT FK_EMPLEADO FOREIGN KEY (RPE_Empleado)
