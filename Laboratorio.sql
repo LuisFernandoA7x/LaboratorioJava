@@ -91,7 +91,8 @@ CREATE TABLE Aula.Equipo
 
 CREATE TABLE Aula.Sancion
 (
-	Clave_Unica BIGSERIAL NOT NULL,
+	id BIGSERIAL NOT NULL,
+	Clave_Unica BIGINT NOT NULL,
 	RPE_Empleado BIGINT NOT NULL,
 	Descripcion VARCHAR(50) NOT NULL,
 	Fecha DATE NOT NULL,
