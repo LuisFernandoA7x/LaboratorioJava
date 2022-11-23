@@ -34,7 +34,10 @@ public class Menu extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +106,22 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu4);
 
+        jMenu7.setText("Asistencia");
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu7);
+
+        jMenu8.setText("Préstamo");
+        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu8MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu8);
+
         jMenu6.setText("Sanción");
         jMenu6.setPreferredSize(new java.awt.Dimension(80, 15));
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,6 +130,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu6);
+
+        jMenu9.setText("Bitacora entrega");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
 
@@ -174,6 +201,30 @@ public class Menu extends javax.swing.JFrame {
         formSancion.show();
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        // TODO add your handling code here:
+        Asistencia menuAsistencia = new Asistencia();
+        escritorio.removeAll();
+        escritorio.add(menuAsistencia);
+        menuAsistencia.show();
+    }//GEN-LAST:event_jMenu7MouseClicked
+
+    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+        // TODO add your handling code here:
+        Prestamo menuAsistencia = new Prestamo();
+        escritorio.removeAll();
+        escritorio.add(menuAsistencia);
+        menuAsistencia.show();
+    }//GEN-LAST:event_jMenu8MouseClicked
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+        // TODO add your handling code here:
+        BitacoraEntrega bt = new BitacoraEntrega();
+        escritorio.removeAll();
+        escritorio.add(bt);
+        bt.show();
+    }//GEN-LAST:event_jMenu9MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -217,6 +268,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

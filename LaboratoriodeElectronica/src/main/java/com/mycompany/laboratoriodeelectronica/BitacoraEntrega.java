@@ -196,7 +196,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tablaBitacoraMouseClicked
 
     private void cargarDatosBitacora(){
-        IdPrestamo = Integer.parse(tablaBitacora.CurrentRow.Cells[0].Value.ToString());
+        //IdPrestamo = Integer.parse(tablaBitacora.CurrentRow.Cells[0].Value.ToString());
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         insertarRegBitacora();
