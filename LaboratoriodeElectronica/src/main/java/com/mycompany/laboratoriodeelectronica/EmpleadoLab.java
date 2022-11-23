@@ -9,7 +9,6 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -778,14 +777,13 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
         int anioC = jd.getCalendar().get(java.util.Calendar.YEAR);        
         return new java.util.Date(anioC, mesC, diaC);
     }
+    
     public void insertarEmpleado()
     {                
         Cconexion objetoConexion = new Cconexion();        
         String consulta = "Insert into Persona.Empleado(RPE_Empleado,Nombre,Domicilio,Correo,Celular,EmpleadoDesde, Antiguedad, TipoEmpleado) VALUES(?,?,?,?,?,?,?,?);";     
-        String fecha = dateToString(empleadoDesde);  
-        
-        java.util.Date d2 = calendarToJavaDate(empleadoDesde);        
-        int antiguedad = calculaAntiguedad(d2);        
+        String fecha = dateToString(empleadoDesde);                        
+        int antiguedad = calculaAntiguedad(empleadoDesde.getDate());        
         try
         {
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
@@ -1032,10 +1030,8 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-
         if(tipoEmpleado.getSelectedIndex() != 0){
-            insertarEmpleado();
-            //Mostrar(tablaEmpleado);
+            insertarEmpleado();            
             MostrarVistaEmpleado();
             clearFormEmpleado();
         }else{
