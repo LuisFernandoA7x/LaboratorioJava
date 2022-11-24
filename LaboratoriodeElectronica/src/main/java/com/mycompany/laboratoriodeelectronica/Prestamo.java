@@ -368,17 +368,19 @@ public class Prestamo extends javax.swing.JInternalFrame {
         
         Cconexion objetoConexion = new Cconexion();
         
-        String consulta ="DELETE FROM Aula.Prestamo WHERE Id_Prestamo = ?;";                                
+        String consulta;
         try
         {
-            CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
+            consulta ="DELETE FROM Aula.BitacoraEntrega WHERE Id_Prestamo = ?;";
+            CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);            
             cs.setInt(1,idPrestamo);
             cs.execute();
             
-            consulta ="DELETE FROM Aula.BitacoraEntrega WHERE Id_Prestamo = ?;";
+            consulta ="DELETE FROM Aula.Prestamo WHERE Id_Prestamo = ?;";  
+            cs = objetoConexion.establecerConexion().prepareCall(consulta);                                                                     
             cs.setInt(1,idPrestamo);
-            cs = objetoConexion.establecerConexion().prepareCall(consulta);               
             cs.execute();
+                        
         }catch (Exception e)
         {
             JOptionPane.showMessageDialog(null,"Error" + e.toString());
@@ -492,11 +494,6 @@ public class Prestamo extends javax.swing.JInternalFrame {
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
-            }
-        });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -625,11 +622,6 @@ public class Prestamo extends javax.swing.JInternalFrame {
        Mostrar(datosPrestamo);
        EliminaSeleccion();
     }//GEN-LAST:event_jButton3MouseClicked
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void datosPrestamoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datosPrestamoMouseClicked
         // TODO add your handling code here:

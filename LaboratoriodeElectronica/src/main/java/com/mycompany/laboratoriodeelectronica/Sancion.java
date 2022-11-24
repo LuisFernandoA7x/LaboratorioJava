@@ -507,8 +507,7 @@ public class Sancion extends javax.swing.JInternalFrame {
                     break;
                 case "delete":
                     //MontoScn es el monto de la tupla seleccionada y es el que se encuentra en la BD, en tabla sancion
-                    String montoScn = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),6).toString();
-                    JOptionPane.showMessageDialog(null,"ClaveUnica: "+claveU );
+                    String montoScn = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),6).toString();                    
                     if(cantidad != null && montoScn != null){
                         int total = Integer.parseInt(cantidad) - Integer.parseInt(montoScn);
                         if(total >= 0){

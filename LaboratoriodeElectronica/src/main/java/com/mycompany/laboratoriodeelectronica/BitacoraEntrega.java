@@ -243,7 +243,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
 
     private void modificarRegBitacora(){
         String[] numInvent = prestamoID.getSelectedItem().toString().split("-");//numero inventario, fecha
-        String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE NumInv=" + numInvent[0];
+        String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE NumInv=" + numInvent[0];                
         
         Cconexion conexion = new Cconexion();
         String idPrest = "";
@@ -258,8 +258,8 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
                 //guarda los valores duvueltos de la consulta
                 idPrest= rs.getString(1);
                 rpe = rs.getString(2);                
-            }                        
-            String consulta = "UPDATE Aula.BitacoraEntrega SET Id_Prestamo=" + idPrest + ",RPE_Empleado=" + rpe ;
+            }              
+            String consulta = "UPDATE Aula.BitacoraEntrega SET Id_Prestamo=" + idPrest + ",RPE_Empleado=" + rpe +" WHERE Id_Prestamo = "+IdPrestamo;
             CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
             cs.execute(); 
         }catch(Exception e)
