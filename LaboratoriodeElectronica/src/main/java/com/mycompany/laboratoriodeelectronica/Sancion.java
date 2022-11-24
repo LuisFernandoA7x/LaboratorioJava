@@ -410,7 +410,7 @@ public class Sancion extends javax.swing.JInternalFrame {
         try{
             Statement st = conexion.establecerConexion().createStatement();                               
             ResultSet rs = st.executeQuery(cons1);
-            
+            //falta acumular adeudo en tabla alumno
             String claveUnica = "";
             while(rs.next())
                 claveUnica = rs.getString(1);
@@ -422,6 +422,7 @@ public class Sancion extends javax.swing.JInternalFrame {
             String consulta = "INSERT INTO Aula.Sancion(Clave_Unica,RPE_Empleado,Descripcion,F_liquidacion,Fecha,Monto) VALUES (" + claveUnica + "," + rpe + ", '" + descripcionSancion.getText() + "', '" + strDate + "', '" + strDate1 + "','" + montoSancion.getText() + "')";
             CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
             cs.execute();                      
+            actualizarAdeudo("insert");
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Error" + e.toString());
         }
@@ -438,7 +439,9 @@ public class Sancion extends javax.swing.JInternalFrame {
         try{
             Cconexion conexion = new Cconexion();
             String idSancion = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),0).toString();
-            //el disparador solo envia el valor insertado en sancion hacia la tabla alumno
+            
+            actualizarAdeudo("update");
+            
             String[] clve = claveUnicaSancion.getSelectedItem().toString().split("-");
             String cons1 = "Select Clave_Unica FROM Persona.Alumno WHERE Nombre='" + clve[0] + "' AND Generacion='" + clve[1] + "'";
             Statement st = conexion.establecerConexion().createStatement();                               
@@ -467,27 +470,81 @@ public class Sancion extends javax.swing.JInternalFrame {
         clearFormSancion();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void actualizarAdeudo(String transaccion){
+        Cconexion conexion = new Cconexion();        
+        String[] claveSancion = claveUnicaSancion.getSelectedItem().toString().split("-");        
+        String consulta, claveU = "";
+        try{
+            consulta = "SELECT Clave_Unica FROM Persona.Alumno WHERE Nombre='"+claveSancion[0]+"' AND Generacion = '"+claveSancion[1]+"'";
+            Statement st = conexion.establecerConexion().createStatement();                               
+            ResultSet rs = st.executeQuery(consulta);             
+            while(rs.next())
+                claveU = rs.getString(1);            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al obtener datos del alumno: " + e.toString());
+        }
+        consulta = "SELECT Adeudo FROM Persona.Alumno WHERE Clave_Unica=" + claveU;
+        try{
+            Statement st = conexion.establecerConexion().createStatement();                               
+            ResultSet rs = st.executeQuery(consulta); 
+            CallableStatement cs;
+           //Cantidad es el monto actual en la base de datos es el total acumulado en tabla alumno
+            String cantidad = "";
+            while(rs.next())
+                cantidad = rs.getString(1);            
+            //Obtener el monto a insertar/actualizar
+            String montoNuevo = montoSancion.getText();
+            switch(transaccion){
+                case "insert":
+                    if(cantidad == null)
+                        cantidad = "0"; 
+                    if(montoNuevo != null){
+                        int total = Integer.parseInt(cantidad) + Integer.parseInt(montoNuevo);
+                        consulta = "UPDATE Persona.Alumno SET Adeudo =" + total+ "WHERE Clave_Unica="+claveU;
+                        cs = conexion.establecerConexion().prepareCall(consulta); 
+                        cs.execute();
+                    }
+                    break;
+                case "delete":
+                    //MontoScn es el monto de la tupla seleccionada y es el que se encuentra en la BD, en tabla sancion
+                    String montoScn = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),6).toString();
+                    JOptionPane.showMessageDialog(null,"ClaveUnica: "+claveU );
+                    if(cantidad != null && montoScn != null){
+                        int total = Integer.parseInt(cantidad) - Integer.parseInt(montoScn);
+                        if(total >= 0){
+                            consulta = "UPDATE Persona.Alumno SET Adeudo =" + total + "WHERE Clave_Unica="+claveU;
+                            cs = conexion.establecerConexion().prepareCall(consulta); 
+                            cs.execute();
+                        }                        
+                    }
+                    break;
+                case "update":
+                    //MontoScn es el monto de la tupla seleccionada y es el que se encuentra en la BD, en tabla sancion
+                    String montoScn2 = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),6).toString();
+                    if(cantidad != null && montoScn2 != null){
+                        //El campo Adeudo se actualiza restando el valor anterior antes de modificar
+                        //y se suma el nuevo que se ingresó en el formulario
+                        int total = Integer.parseInt(cantidad) - Integer.parseInt(montoScn2) + Integer.parseInt(montoNuevo);
+                        consulta = "UPDATE Persona.Alumno SET Adeudo =" + total+ "WHERE Clave_Unica="+claveU;
+                        cs = conexion.establecerConexion().prepareCall(consulta); 
+                        cs.execute();                        
+                    }
+                    break;
+            }                        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error" + e.toString());
+        }         
+    }
     private void eliminarSancion(){        
 
         String id = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),0).toString();        
         Cconexion conexion = new Cconexion();
         String claveSancion = claveUnicaSancion.getSelectedItem().toString();
         claveSancion = claveSancion.substring(claveSancion.indexOf("-"));        
-        //obtener el adeudo del alumno
+        //obtener el adeudo del alumno y restarlo en la tabla alumno
         //Restar el monto de la sancion, actualizar el adeudo con el valor nuevo
         try{
-           /*String consulta = "SELECT Adeudo FROM Persona.Alumno WHERE Clave_Unica=" + claveSancion;
-           Statement st = conexion.establecerConexion().createStatement();                               
-           ResultSet rs = st.executeQuery(consulta);           
-           String cantidad = "";
-           while(rs.next())
-               rs.getString(1);           
-           String montoSancion = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),6).toString();
-           
-           int total = Integer.parseInt(cantidad) - Integer.parseInt(montoSancion);
-           consulta = "UPDATE Persona.Alumno SET Adeudo =" + total;
-           CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);           
-           cs.execute();    */        
+           actualizarAdeudo("delete");
            String consulta = "DELETE FROM Aula.Sancion WHERE id=" + id;
            CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
            cs.execute();             
