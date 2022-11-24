@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +27,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     
     public BitacoraEntrega() {
         initComponents();
+        mostrarVistaBitacora();
     }
 
     /**
@@ -62,6 +64,8 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha Entregado");
 
+        entregadoBitacora.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -87,10 +91,10 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
                     .addComponent(prestamoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(entregadoBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         tablaBitacora.setModel(new javax.swing.table.DefaultTableModel(
@@ -114,27 +118,27 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         jButton1.setText("Agregar");
         jButton1.setMaximumSize(new java.awt.Dimension(96, 25));
         jButton1.setMinimumSize(new java.awt.Dimension(25, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
             }
         });
 
         jButton2.setText("Modificar");
         jButton2.setMaximumSize(new java.awt.Dimension(96, 25));
         jButton2.setMinimumSize(new java.awt.Dimension(96, 25));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
             }
         });
 
         jButton3.setText("Eliminar");
         jButton3.setMaximumSize(new java.awt.Dimension(96, 25));
         jButton3.setMinimumSize(new java.awt.Dimension(96, 25));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
             }
         });
 
@@ -154,7 +158,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,15 +174,15 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quitarSelec)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quitarSelec))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -196,42 +200,47 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tablaBitacoraMouseClicked
 
     private void cargarDatosBitacora(){
-        //IdPrestamo = Integer.parse(tablaBitacora.CurrentRow.Cells[0].Value.ToString());
-    }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        insertarRegBitacora();
-        mostrarVistaBitacora();
-        clearFormBitacora();
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-    private void insertarRegBitacora(){
-        String[] numINV = prestamoID.getSelectedItem().toString().split("-");
-        String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE numInv=" + numINV[0];
+        int row = tablaBitacora.getSelectedRow();
+        String numInvFecha = tablaBitacora.getModel().getValueAt(row,0).toString();  
+        prestamoID.addItem(numInvFecha);
+        prestamoID.setSelectedItem(numInvFecha);
+        String sql = "SELECT Id_Prestamo FROM Aula.Prestamo WHERE NumInv ="+numInvFecha.substring(0, numInvFecha.indexOf("-"));
+        Cconexion conexion = new Cconexion();
         try{
-            Cconexion conexion = new Cconexion();
-            Statement st = conexion.establecerConexion().createStatement();                               
-            ResultSet rs = st.executeQuery(cons1);
-            
-            String idPrestamo = "", rpe = "";
-            while(rs.next()){
-                idPrestamo = rs.getString(1);
-                rpe = rs.getString(2);
-            }                                                    
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");              
-            String strDate = dateFormat.format(entregadoBitacora.getDate());
-            String consulta = "INSERT INTO Aula.BitacoraEntrega(Id_Prestamo,RPE_Empleado,Fecha_Entrega) VALUES ("+idPrestamo+","+rpe+",'"+strDate+"')";
-            CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
-            cs.execute();                      
+            Statement st = conexion.establecerConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next())
+                IdPrestamo = Integer.parseInt(rs.getString(1));               
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Error" + e.toString());
+        } 
+        quitarSelec.setVisible(true);
+    }    
+    private void insertarRegBitacora(){
+        if(prestamoID.getSelectedIndex() != 0){
+            String[] numINV = prestamoID.getSelectedItem().toString().split("-");
+            String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE numInv=" + numINV[0];
+            try{
+                Cconexion conexion = new Cconexion();
+                Statement st = conexion.establecerConexion().createStatement();                               
+                ResultSet rs = st.executeQuery(cons1);
+
+                String idPrestamo = "", rpe = "";
+                while(rs.next()){
+                    idPrestamo = rs.getString(1);
+                    rpe = rs.getString(2);
+                }                                                    
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");              
+                String strDate = dateFormat.format(entregadoBitacora.getDate());
+                String consulta = "INSERT INTO Aula.BitacoraEntrega(Id_Prestamo,RPE_Empleado,Fecha_Entrega) VALUES ("+idPrestamo+","+rpe+",'"+strDate+"')";
+                CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
+                cs.execute();                      
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error" + e.toString());
+            }
         }
-    }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        modificarRegBitacora();
-        mostrarVistaBitacora();
-        clearFormBitacora();
-    }//GEN-LAST:event_jButton2ActionPerformed
-    //*Considerando que se concatena numero de (inventario, fecha) de la tabla prestamo
+    }    
+
     private void modificarRegBitacora(){
         String[] numInvent = prestamoID.getSelectedItem().toString().split("-");//numero inventario, fecha
         String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE NumInv=" + numInvent[0];
@@ -243,17 +252,14 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         try
         {
             st = conexion.establecerConexion().createStatement();
-            ResultSet rs = st.executeQuery(cons1);
-            //Elimina los elementos actuales para no insertar duplicados
+            ResultSet rs = st.executeQuery(cons1);            
             while (rs.next())
             {
                 //guarda los valores duvueltos de la consulta
                 idPrest= rs.getString(1);
                 rpe = rs.getString(2);                
-            }
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");              
-            String strDate = dateFormat.format(entregadoBitacora.getDate());
-            String consulta = "UPDATE Aula.BitacoraEntrega SET Id_Prestamo=" + idPrest + ",RPE_Empleado=" + rpe + ", Fecha_Entrega='" + strDate + "'";
+            }                        
+            String consulta = "UPDATE Aula.BitacoraEntrega SET Id_Prestamo=" + idPrest + ",RPE_Empleado=" + rpe ;
             CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
             cs.execute(); 
         }catch(Exception e)
@@ -261,15 +267,29 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
         }
     }
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        eliminarRegBitacora();
-        mostrarVistaBitacora();
-        clearFormBitacora();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void quitarSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarSelecActionPerformed
         clearFormBitacora();
     }//GEN-LAST:event_quitarSelecActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        eliminarRegBitacora();
+        mostrarVistaBitacora();
+        clearFormBitacora();
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        modificarRegBitacora();
+        mostrarVistaBitacora();
+        clearFormBitacora();
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        insertarRegBitacora();
+        mostrarVistaBitacora();
+        clearFormBitacora();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     private void eliminarRegBitacora(){
         Cconexion conexion = new Cconexion();
@@ -291,12 +311,15 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     private void mostrarVistaBitacora(){
         VistaBitacora();
         LlenaIDPrestamo();
+        Calendar clndr = Calendar.getInstance();
+        entregadoBitacora.setCalendar(clndr);
+        quitarSelec.setVisible(false);
     }
     private void VistaBitacora(){        
         Cconexion objetoConexion = new Cconexion();
                 
         DefaultTableModel modelo = new DefaultTableModel();   
-        modelo.addColumn("id_Prestamo");        
+        modelo.addColumn("id_Préstamo");        
         modelo.addColumn("RPE_Empleado");        
         modelo.addColumn("Fecha_Entrega");                
 
@@ -322,7 +345,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         }         
     }
     private String concatenarNumInvFecha(String idPrestamo){
-        String sql = "SELECT NumInv, FechaPrestamo FROM Aula.Prestamo WHERE Id_Prestamo="+idPrestamo;
+        String sql = "SELECT NumInv, FechaEntrega FROM Aula.Prestamo WHERE Id_Prestamo="+idPrestamo;
         String [] datos = new String[2];
         Statement st;
         String numInvFecha="";
@@ -357,18 +380,28 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
             ResultSet rs = st.executeQuery(sql);
             //Elimina los elementos actuales para no insertar duplicados
             prestamoID.removeAllItems();
-            prestamoID.addItem("");
+            prestamoID.addItem("Seleccione");
             while (rs.next())
             {
                 //guarda los valores duvueltos de la consulta
                 datos[0]= rs.getString(1);
                 datos[1]= rs.getString(2);
-                prestamoID.addItem(datos[0]+"-"+datos[1]);
-            }
+                String item = datos[0]+"-"+datos[1];
+                if(!registrado(item))
+                    prestamoID.addItem(item);
+            }            
         }catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
         }
+    }
+    //Evalua si un elemento dado ya esta registrado, para evitar registros duplicados
+    private Boolean registrado(String item){
+        for (int i=0; i<tablaBitacora.getModel().getRowCount();i++) {
+            if(tablaBitacora.getModel().getValueAt(i, 0).equals(item))
+                return true;
+        }
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

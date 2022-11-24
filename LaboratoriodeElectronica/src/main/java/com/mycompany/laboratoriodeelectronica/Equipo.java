@@ -281,7 +281,7 @@ public class Equipo extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(datosEquipo);
 
-        tipoEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Multimetro", "Fuente de Voltaje", "Osciloscopio", "Pinzas de corte" }));
+        tipoEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Multimetro", "Fuente de Voltaje", "Osciloscopio", "Pinzas de corte" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -371,23 +371,29 @@ public class Equipo extends javax.swing.JInternalFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:        
-        insertarEquipo();
-        Mostrar(datosEquipo);
-        clearFormEquipo();
+        if(tipoEquipo.getSelectedIndex()!=0){
+            insertarEquipo();
+            Mostrar(datosEquipo);
+            clearFormEquipo();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        ModificarEquipo();
-        Mostrar(datosEquipo);
-        clearFormEquipo();
-        clearFormEquipo();
+        if(tipoEquipo.getSelectedIndex()!=0){
+            ModificarEquipo();
+            Mostrar(datosEquipo);
+            clearFormEquipo();
+            clearFormEquipo();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        EliminarEquipo();
-        Mostrar(datosEquipo);
+        if(tipoEquipo.getSelectedIndex()!=0){
+            EliminarEquipo();
+            Mostrar(datosEquipo);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void datosEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datosEquipoMouseClicked

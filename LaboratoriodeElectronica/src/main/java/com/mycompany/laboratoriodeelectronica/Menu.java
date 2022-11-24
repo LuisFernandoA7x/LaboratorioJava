@@ -29,7 +29,6 @@ public class Menu extends javax.swing.JFrame {
 
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -58,11 +57,6 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.setAlignmentX(1.0F);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jMenuBar1.setPreferredSize(new java.awt.Dimension(130, 24));
-
-        jMenu1.setText("File");
-        jMenu1.setMaximumSize(new java.awt.Dimension(80, 32767));
-        jMenu1.setPreferredSize(new java.awt.Dimension(100, 35));
-        jMenuBar1.add(jMenu1);
 
         jMenu5.setText("Empleado");
         jMenu5.setPreferredSize(new java.awt.Dimension(80, 15));
@@ -131,7 +125,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu6);
 
-        jMenu9.setText("Bitacora entrega");
+        jMenu9.setText("Bitácora entrega");
         jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu9MouseClicked(evt);
@@ -262,7 +256,6 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

@@ -24,20 +24,19 @@ public class Prestamo extends javax.swing.JInternalFrame {
      * Creates new form Prestamo
      */
     public Prestamo() {
-        initComponents();
+        initComponents();        
+        Mostrar(datosPrestamo);
         LlenaClavesAsistencia();
         LlenaRPEAsistencia();
         LlenaEquipo();
-        Mostrar(datosPrestamo);
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
         fechaPrestamo.setVisible(false);
         fechaEntrega.setVisible(false);
     }
- private void LlenaClavesAsistencia()
-        {
+    private void LlenaClavesAsistencia(){
         
-             Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion();
         
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -52,20 +51,18 @@ public class Prestamo extends javax.swing.JInternalFrame {
         String [] datos = new String[2];
         //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
         Statement st; 
+        alumnoPrestamo.removeAllItems();
         alumnoPrestamo.addItem("Seleccione un dato");
         try
         {
             st = objetoConexion.establecerConexion().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
+            ResultSet rs = st.executeQuery(sql);            
             while (rs.next())
             {
                 //guarda los valores duvueltos de la consulta
                 datos[0]= rs.getString(1);
-                datos[1]= rs.getString(2);
-         
-              
-                  alumnoPrestamo.addItem(datos[0]+"-"+datos[1]);
+                datos[1]= rs.getString(2);                       
+                alumnoPrestamo.addItem(datos[0]+"-"+datos[1]);
             }
         
         }catch(Exception e)
@@ -74,11 +71,9 @@ public class Prestamo extends javax.swing.JInternalFrame {
         }
         }
       
-       private void LlenaRPEAsistencia()
-        {
+    private void LlenaRPEAsistencia(){        
         
-             Cconexion objetoConexion = new Cconexion();
-        
+        Cconexion objetoConexion = new Cconexion();        
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         
@@ -97,63 +92,63 @@ public class Prestamo extends javax.swing.JInternalFrame {
         {
             st = objetoConexion.establecerConexion().createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
+            empleadoPrestamo.removeAllItems();
+            empleadoPrestamo.addItem("Seleccione un dato");
             while (rs.next())
             {
                 //guarda los valores duvueltos de la consulta
                 datos[0]= rs.getString(1);
-                datos[1]= rs.getString(2);
-         
-              
-                  empleadoPrestamo.addItem(datos[0]+"-"+datos[1]);
-            }
-        
+                datos[1]= rs.getString(2);                       
+                empleadoPrestamo.addItem(datos[0]+"-"+datos[1]);
+            }        
         }catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
         }
-        }
+    }
       
-          private void LlenaEquipo()
-        {
-        
-             Cconexion objetoConexion = new Cconexion();
-        
+    private void LlenaEquipo(){
+            
+        Cconexion objetoConexion = new Cconexion();        
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
-        
-        String sql = "";
-  
 
+        String sql = "";
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
         sql = "SELECT Nombre,Modelo,Marca FROM Aula.Equipo;";
-        
+
         //es un arrgelo para la longitud de la tabla (columnas)
         String [] datos = new String[3];
         //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
         Statement st; 
+        equipoPrestamo.removeAllItems();
         equipoPrestamo.addItem("Seleccione un dato");
-        try
-        {
+        try{
             st = objetoConexion.establecerConexion().createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
             while (rs.next())
             {
                 //guarda los valores duvueltos de la consulta
                 datos[0]= rs.getString(1);
                 datos[1]= rs.getString(2);
                 datos[2]= rs.getString(3);
-                  equipoPrestamo.addItem(datos[0]+"-"+datos[1]+"-"+datos[2]);
+                String item = datos[0]+"-"+datos[1]+"-"+datos[2];
+                if(!registrado(item))
+                    equipoPrestamo.addItem(item);                
+            }             
+        }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
             }
-        
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
+    }
+    //Evalua si un elemento dado ya esta registrado, para evitar registros duplicados
+    private Boolean registrado(String item){
+        for (int i=0; i<datosPrestamo.getModel().getRowCount();i++) {
+            if(datosPrestamo.getModel().getValueAt(i, 4).equals(item))
+                return true;
         }
-        }
-        
-             public static String truncate(String value, int length) {
+        return false;
+    }   
+    public static String truncate(String value, int length) {
         // Ensure String length is longer than requested size.
         if (value.length() > length) {
             return value.substring(0, length);
@@ -177,7 +172,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
         modelo.addColumn("Equipo");
         modelo.addColumn("Alumno");
         modelo.addColumn("Empleado");
-         modelo.addColumn("Equipo");
+        modelo.addColumn("Equipo");
         modelo.addColumn("Alumno1");
         modelo.addColumn("Empleado");
         modelo.addColumn("Fecha Préstamo");
@@ -244,10 +239,10 @@ public class Prestamo extends javax.swing.JInternalFrame {
         }
     }
      
-      private void insertarRegistroAsistencia()
+      private void insertarRegistroPrestamo()
         {
-             Cconexion objetoConexion = new Cconexion();
-             String consulta = "Insert into Aula.Prestamo(numinv,clave_unica,rpe_empleado) VALUES(?,?,?);";
+            Cconexion objetoConexion = new Cconexion();
+            String consulta = "Insert into Aula.Prestamo(numinv,clave_unica,rpe_empleado) VALUES(?,?,?);";
         
             try
             {
@@ -328,10 +323,8 @@ public class Prestamo extends javax.swing.JInternalFrame {
         return clavMat;
     }  
        
-        public void seleccionarCar(JTable Equipo)
-     {
-        try
-        {
+    public void seleccionarCar(JTable Equipo){
+        try{
               
             int fila = datosPrestamo.getSelectedRow();
             if(fila >= 0)
@@ -343,12 +336,13 @@ public class Prestamo extends javax.swing.JInternalFrame {
                 ClaveAlumno=Integer.parseInt(datosPrestamo.getModel().getValueAt(fila,2).toString());
                 ClaveEquipo = Integer.parseInt(datosPrestamo.getModel().getValueAt(fila,1).toString());
                 empleadoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,3).toString());
+                equipoPrestamo.addItem(datosPrestamo.getValueAt(fila,1).toString());
                 equipoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,1).toString());
-                 alumnoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,2).toString());
-                 fechaPrestamo.setText(datosPrestamo.getValueAt(fila,4).toString());
-                 fechaEntrega.setText(datosPrestamo.getValueAt(fila,5).toString());
-                 fechaPrestamo.setEditable(false);
-                 fechaEntrega.setEditable(false);
+                alumnoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,2).toString());
+                 //fechaPrestamo.setText(datosPrestamo.getValueAt(fila,4).toString());
+                 //fechaEntrega.setText(datosPrestamo.getValueAt(fila,5).toString());
+                 //fechaPrestamo.setEditable(false);
+                 //fechaEntrega.setEditable(false);
                 //ubicacionEquipo.setText(Equipo.getValueAt(fila,4).toString());
                // marcaEquipo.setText(Equipo.getValueAt(fila,5).toString());
                 //tipoEquipo.setText(Equipo.getValueAt(fila,6).toString());
@@ -369,21 +363,21 @@ public class Prestamo extends javax.swing.JInternalFrame {
         }
     }
         
-            public void EliminarPrestamo()
+    public void EliminarPrestamo()
     {
         
         Cconexion objetoConexion = new Cconexion();
         
-        String consulta ="DELETE FROM Aula.Prestamo WHERE Id_Prestamo = ?;";
-
-       
-                
-               
+        String consulta ="DELETE FROM Aula.Prestamo WHERE Id_Prestamo = ?;";                                
         try
         {
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
-               cs.setInt(1,idPrestamo);
-               
+            cs.setInt(1,idPrestamo);
+            cs.execute();
+            
+            consulta ="DELETE FROM Aula.BitacoraEntrega WHERE Id_Prestamo = ?;";
+            cs.setInt(1,idPrestamo);
+            cs = objetoConexion.establecerConexion().prepareCall(consulta);               
             cs.execute();
         }catch (Exception e)
         {
@@ -391,7 +385,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
         }
     }
             
-      public void ModificarPrestamo()
+    public void ModificarPrestamo()
     {
         Cconexion objetoConexion = new Cconexion();
         
@@ -426,6 +420,9 @@ public class Prestamo extends javax.swing.JInternalFrame {
          equipoPrestamo.setSelectedIndex(0);
          alumnoPrestamo.setSelectedIndex(0);
          empleadoPrestamo.setSelectedIndex(0);
+         LlenaEquipo();
+         LlenaClavesAsistencia();
+         LlenaRPEAsistencia();
      }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -486,11 +483,6 @@ public class Prestamo extends javax.swing.JInternalFrame {
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -605,7 +597,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        insertarRegistroAsistencia();
+        insertarRegistroPrestamo();
         Mostrar(datosPrestamo);
         EliminaSeleccion();
     }//GEN-LAST:event_jButton1MouseClicked
@@ -622,15 +614,10 @@ public class Prestamo extends javax.swing.JInternalFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-
         ModificarPrestamo();
         Mostrar(datosPrestamo);
         EliminaSeleccion();
     }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:

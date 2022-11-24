@@ -230,11 +230,12 @@
     <Component class="javax.swing.JComboBox" name="tipoEquipo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Multimetro"/>
-            <StringItem index="1" value="Fuente de Voltaje"/>
-            <StringItem index="2" value="Osciloscopio"/>
-            <StringItem index="3" value="Pinzas de corte"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Seleccione"/>
+            <StringItem index="1" value="Multimetro"/>
+            <StringItem index="2" value="Fuente de Voltaje"/>
+            <StringItem index="3" value="Osciloscopio"/>
+            <StringItem index="4" value="Pinzas de corte"/>
           </StringArray>
         </Property>
       </Properties>

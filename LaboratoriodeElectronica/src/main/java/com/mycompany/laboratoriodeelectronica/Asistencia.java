@@ -316,7 +316,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
         return clav;
     }
     
-       public Integer obtenMateria(String s1){
+    public Integer obtenMateria(String s1){
         Cconexion objetoConexion = new Cconexion();
         String sql = "";
         Integer clavMat=0;
@@ -344,14 +344,11 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }
     
     
-      private void insertarRegistroAsistencia()
-        {
-             Cconexion objetoConexion = new Cconexion();
-             String consulta = "Insert into Aula.Asistencia(clave_unica,rpe_empleado,clavemateria) VALUES(?,?,?);";
-        
+      private void insertarRegistroAsistencia(){
+            Cconexion objetoConexion = new Cconexion();
+            String consulta = "Insert into Aula.Asistencia(clave_unica,rpe_empleado,clavemateria) VALUES(?,?,?);";        
             try
-            {
-               
+            {               
                 String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
                 String materiaP = materiaAsistencia.getSelectedItem().toString();
                 String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");
@@ -359,19 +356,17 @@ public class Asistencia extends javax.swing.JInternalFrame {
                 int lastId = obtenMateria(materiaP);
                 int lastId1 = obtenAlumno(claveP[0],claveP[1]);
                 CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
-                   cs.setInt(1,lastId1);
+                cs.setInt(1,lastId1);
                 cs.setInt(2,Integer.parseInt(rpeP[0]));
                 cs.setInt(3,lastId);
-                 cs.execute();
-                
+                cs.execute();                
             }
             catch (Exception e)
-            {
-               
+            {               
                 //MessageBox.Show("ee" + ex.);
-                  JOptionPane.showMessageDialog(null,"Error" + e.toString());
+                JOptionPane.showMessageDialog(null,"Error" + e.toString());
             }
-        }
+      }
 
          /*public void insertarAsistencia()
     {
@@ -399,124 +394,108 @@ public class Asistencia extends javax.swing.JInternalFrame {
         }
     }*/
     
-      private void LlenaClavesAsistencia()
-        {
-        
-             Cconexion objetoConexion = new Cconexion();
-        
-        //incorporar modelo a la tabla
-        DefaultTableModel modelo = new DefaultTableModel();
-        
-        String sql = "";
-  
+      private void LlenaClavesAsistencia(){        
+            Cconexion objetoConexion = new Cconexion();       
+            //incorporar modelo a la tabla
+            DefaultTableModel modelo = new DefaultTableModel();
 
-        //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
-        sql = "SELECT Nombre,Generacion FROM Persona.Alumno;";
+            String sql = "";
+            //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
+            sql = "SELECT Nombre,Generacion FROM Persona.Alumno;";
+
+            //es un arrgelo para la longitud de la tabla (columnas)
+            String [] datos = new String[2];
+            //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
+            Statement st; 
         
-        //es un arrgelo para la longitud de la tabla (columnas)
-        String [] datos = new String[2];
-        //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
-        Statement st; 
-        
-        try
-        {
-            st = objetoConexion.establecerConexion().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            while (rs.next())
+            try
             {
-                //guarda los valores duvueltos de la consulta
-                datos[0]= rs.getString(1);
-                datos[1]= rs.getString(2);
-         
-              
-                  alumnoAsistencia.addItem(datos[0]+"-"+datos[1]);
+                st = objetoConexion.establecerConexion().createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                alumnoAsistencia.removeAllItems();
+                alumnoAsistencia.addItem("Seleccione");
+                while (rs.next())
+                {
+                    //guarda los valores duvueltos de la consulta
+                    datos[0]= rs.getString(1);
+                    datos[1]= rs.getString(2);
+                    alumnoAsistencia.addItem(datos[0]+"-"+datos[1]);
+                }
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
             }
+       }
+      
+       private void LlenaRPEAsistencia(){
         
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
-        }
+            Cconexion objetoConexion = new Cconexion();
+            //incorporar modelo a la tabla
+            DefaultTableModel modelo = new DefaultTableModel();
+
+            String sql = "";
+
+            //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
+            sql = "SELECT RPE_Empleado,Nombre FROM Persona.Empleado;";
+
+            //es un arrgelo para la longitud de la tabla (columnas)
+            String [] datos = new String[2];
+            //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
+            Statement st; 
+        
+            try
+            {
+                st = objetoConexion.establecerConexion().createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                empleadoAsistencia.removeAllItems();
+                empleadoAsistencia.addItem("Seleccione");
+                while (rs.next())
+                {
+                    //guarda los valores duvueltos de la consulta
+                    datos[0]= rs.getString(1);
+                    datos[1]= rs.getString(2);                     
+                    empleadoAsistencia.addItem(datos[0]+"-"+datos[1]);
+                }
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
+            }
         }
       
-       private void LlenaRPEAsistencia()
-        {
+        private void LlenaClavesMateria(){
         
-             Cconexion objetoConexion = new Cconexion();
+            Cconexion objetoConexion = new Cconexion();
         
-        //incorporar modelo a la tabla
-        DefaultTableModel modelo = new DefaultTableModel();
-        
-        String sql = "";
-  
+            //incorporar modelo a la tabla
+            DefaultTableModel modelo = new DefaultTableModel();
 
-        //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
-        sql = "SELECT RPE_Empleado,Nombre FROM Persona.Empleado;";
-        
-        //es un arrgelo para la longitud de la tabla (columnas)
-        String [] datos = new String[2];
-        //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
-        Statement st; 
-        
-        try
-        {
-            st = objetoConexion.establecerConexion().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            while (rs.next())
-            {
-                //guarda los valores duvueltos de la consulta
-                datos[0]= rs.getString(1);
-                datos[1]= rs.getString(2);
-         
-              
-                  empleadoAsistencia.addItem(datos[0]+"-"+datos[1]);
-            }
-        
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
-        }
-        }
-      
-          private void LlenaClavesMateria()
-        {
-        
-             Cconexion objetoConexion = new Cconexion();
-        
-        //incorporar modelo a la tabla
-        DefaultTableModel modelo = new DefaultTableModel();
-        
-        String sql = "";
-  
+            String sql = "";
+            //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
+            sql = "SELECT Nombre FROM Aula.Materia;";
 
-        //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
-        sql = "SELECT Nombre FROM Aula.Materia;";
-        
-        //es un arrgelo para la longitud de la tabla (columnas)
-        String [] datos = new String[1];
-        //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
-        Statement st; 
-        
-        try
-        {
-            st = objetoConexion.establecerConexion().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            while (rs.next())
+            //es un arrgelo para la longitud de la tabla (columnas)
+            String [] datos = new String[1];
+            //para que se ejecute la consulta , y debemos de importar  import java.sql.Statement;
+            Statement st;             
+            try
             {
-                //guarda los valores duvueltos de la consulta
-                datos[0]= rs.getString(1);
-                  materiaAsistencia.addItem(datos[0]);
+                st = objetoConexion.establecerConexion().createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                materiaAsistencia.removeAllItems();
+                materiaAsistencia.addItem("Seleccione");
+                while (rs.next())
+                {
+                    //guarda los valores duvueltos de la consulta
+                    datos[0]= rs.getString(1);
+                    materiaAsistencia.addItem(datos[0]);
+                }        
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
             }
-        
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"Error:"+ e.toString());
-        }
         }
         
-             public static String truncate(String value, int length) {
+        public static String truncate(String value, int length) {
         // Ensure String length is longer than requested size.
         if (value.length() > length) {
             return value.substring(0, length);
@@ -525,8 +504,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
         }
     }
           
-          public void Mostrar(JTable paramCliente)
-    {
+    public void Mostrar(JTable paramCliente){
         Cconexion objetoConexion = new Cconexion();
         
         //incorporar modelo a la tabla
@@ -565,7 +543,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
         try
         {
             st1 = objetoConexion.establecerConexion().createStatement();
-             ResultSet ct = st1.executeQuery(sql1);
+            ResultSet ct = st1.executeQuery(sql1);
             st2=objetoConexion.establecerConexion().createStatement();
             ResultSet empleado = st2.executeQuery(sql2);
             st3=objetoConexion.establecerConexion().createStatement();
@@ -574,7 +552,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
            {
                datos[6]= ct.getString(1)+"-"+ct.getString(2);
            }*/
-             st = objetoConexion.establecerConexion().createStatement();
+            st = objetoConexion.establecerConexion().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()&& ct.next() && empleado.next() && materia.next())
             {
@@ -599,11 +577,11 @@ public class Asistencia extends javax.swing.JInternalFrame {
             paramCliente.getColumnModel().getColumn(0).setMaxWidth(0);
             paramCliente.getColumnModel().getColumn(0).setMinWidth(0);
             paramCliente.getColumnModel().getColumn(0).setResizable(false);
-             paramCliente.getColumnModel().getColumn(1).setPreferredWidth(0);
+            paramCliente.getColumnModel().getColumn(1).setPreferredWidth(0);
             paramCliente.getColumnModel().getColumn(1).setMaxWidth(0);
             paramCliente.getColumnModel().getColumn(1).setMinWidth(0);
             paramCliente.getColumnModel().getColumn(1).setResizable(false);
-             paramCliente.getColumnModel().getColumn(2).setPreferredWidth(0);
+            paramCliente.getColumnModel().getColumn(2).setPreferredWidth(0);
             paramCliente.getColumnModel().getColumn(2).setMaxWidth(0);
             paramCliente.getColumnModel().getColumn(2).setMinWidth(0);
             paramCliente.getColumnModel().getColumn(2).setResizable(false);
@@ -613,8 +591,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
         }
     }
           
-    public void seleccionarCar(JTable Equipo)
-     {
+    public void seleccionarCar(JTable Equipo){
         try
         {
               
@@ -626,9 +603,10 @@ public class Asistencia extends javax.swing.JInternalFrame {
                 rpeEmpleado= Integer.parseInt(datosAsistencia.getValueAt(fila,1).toString());
                 ClaveAlumno=Integer.parseInt(datosAsistencia.getValueAt(fila,0).toString());
                 ClaveMateria = Integer.parseInt(datosAsistencia.getValueAt(fila,2).toString());
+                
                 empleadoAsistencia.setSelectedItem(datosAsistencia.getValueAt(fila,4).toString());
                 materiaAsistencia.setSelectedItem(datosAsistencia.getValueAt(fila,5).toString());
-                 alumnoAsistencia.setSelectedItem(datosAsistencia.getValueAt(fila,3).toString());
+                alumnoAsistencia.setSelectedItem(datosAsistencia.getValueAt(fila,3).toString());
                 //ubicacionEquipo.setText(Equipo.getValueAt(fila,4).toString());
                // marcaEquipo.setText(Equipo.getValueAt(fila,5).toString());
                 //tipoEquipo.setText(Equipo.getValueAt(fila,6).toString());
@@ -649,56 +627,49 @@ public class Asistencia extends javax.swing.JInternalFrame {
         }
     }
     
-        public void EliminarAsistencia()
-    {
+    public void EliminarAsistencia(){
         
         Cconexion objetoConexion = new Cconexion();
         
         String consulta ="DELETE FROM Aula.Asistencia WHERE Clave_Unica = ? AND RPE_EMPLEADO = ?;";
-         String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
-                String materiaP = materiaAsistencia.getSelectedItem().toString();
-                String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");
-              
-             
-                int lastId1 = obtenAlumno(claveP[0],claveP[1]);
-       
-                
-               
+        String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
+        String materiaP = materiaAsistencia.getSelectedItem().toString();
+        String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");
+                           
+        int lastId1 = obtenAlumno(claveP[0],claveP[1]);                                      
         try
         {
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
-               cs.setInt(1,lastId1);
-                cs.setInt(2,Integer.parseInt(rpeP[0]));
+            cs.setInt(1,lastId1);
+            cs.setInt(2,Integer.parseInt(rpeP[0]));
             cs.execute();
         }catch (Exception e)
         {
             JOptionPane.showMessageDialog(null,"Error" + e.toString());
         }
     }
-         public void ModificarMateria()
-    {
+    
+    public void ModificarMateria(){
         Cconexion objetoConexion = new Cconexion();
         
         String consulta = "UPDATE Aula.Asistencia SET clave_unica = ? ,rpe_empleado = ?,clavemateria = ? WHERE Clave_Unica = ? AND clavemateria = ?;";
         //String consulta = "UPDATE persona.cliente SET nombre = '"+nombreMC+"', email ='"+emailMC+"', telefono = '"+telefonoMC+"', fechaNac = '"+fechaMC+"' WHERE id_cliente="+getIdcliente()+";";
-        
         try
         {
-              String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
-                String materiaP = materiaAsistencia.getSelectedItem().toString();
-                String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");
+            String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
+            String materiaP = materiaAsistencia.getSelectedItem().toString();
+            String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");
               
-                int lastId = obtenMateria(materiaP);
-                int lastId1 = obtenAlumno(claveP[0],claveP[1]);
+            int lastId = obtenMateria(materiaP);
+            int lastId1 = obtenAlumno(claveP[0],claveP[1]);
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
           
-             cs.setInt(1,lastId1);
-              cs.setInt(2,Integer.parseInt(rpeP[0]));
+            cs.setInt(1,lastId1);
+            cs.setInt(2,Integer.parseInt(rpeP[0]));
             cs.setInt(3,lastId);   
             cs.setInt(4,ClaveAlumno);
             cs.setInt(5,ClaveMateria);
-            cs.execute();
-            //JOptionPane.showMessageDialog(null,"Se inserto correctamente");
+            cs.execute();            
             
         }catch (Exception e)
         {
@@ -706,30 +677,26 @@ public class Asistencia extends javax.swing.JInternalFrame {
         }
     }
  
-          public void RegistraSalida()
-    {
+    public void RegistraSalida(){
         Cconexion objetoConexion = new Cconexion();
-           String dateTime = DateTimeFormatter.ofPattern("HH:mm:ss")
-                    .format(LocalDateTime.now());
+        String dateTime = DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now());
            
         String consulta = "UPDATE Aula.Asistencia SET hr_salida = ? WHERE Clave_Unica = ? AND clavemateria = ?;";
         //String consulta = "UPDATE persona.cliente SET nombre = '"+nombreMC+"', email ='"+emailMC+"', telefono = '"+telefonoMC+"', fechaNac = '"+fechaMC+"' WHERE id_cliente="+getIdcliente()+";";
         
         try
         {
-              String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
-                String materiaP = materiaAsistencia.getSelectedItem().toString();
-                String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");
-              
-                int lastId = obtenMateria(materiaP);
-                int lastId1 = obtenAlumno(claveP[0],claveP[1]);
+            String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
+            String materiaP = materiaAsistencia.getSelectedItem().toString();
+            String[] rpeP = empleadoAsistencia.getSelectedItem().toString().split("-");              
+            int lastId = obtenMateria(materiaP);
+            int lastId1 = obtenAlumno(claveP[0],claveP[1]);
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
           
-             cs.setTime(1,Time.valueOf(dateTime)); 
+            cs.setTime(1,Time.valueOf(dateTime)); 
             cs.setInt(2,ClaveAlumno);
             cs.setInt(3,ClaveMateria);
-            cs.execute();
-            //JOptionPane.showMessageDialog(null,"Se inserto correctamente");
+            cs.execute();            
             
         }catch (Exception e)
         {

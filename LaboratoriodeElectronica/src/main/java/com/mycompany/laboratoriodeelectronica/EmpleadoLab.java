@@ -268,7 +268,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Correo");
 
-        tipoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Becario", "Colaborador", "Responsable" }));
+        tipoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Becario", "Colaborador", "Responsable" }));
         tipoEmpleado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 tipoEmpleadoItemStateChanged(evt);
