@@ -18,15 +18,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author danie
  */
-public class Asistencia extends javax.swing.JInternalFrame {
-    Cconexion conexion = new Cconexion();
+public class Asistencia extends javax.swing.JInternalFrame {    
     Integer ClaveAlumno=0;
     Integer ClaveMateria=0;
     Integer rpeEmpleado=0;
+    
+    private String userName;
+    private String password;
+    Cconexion conexion = new Cconexion(userName, password);
     /**
      * Creates new form Asistencia
      */
-    public Asistencia() {
+    /*public Asistencia() {
         initComponents();
         LlenaClavesAsistencia();
         LlenaClavesMateria();
@@ -38,6 +41,22 @@ public class Asistencia extends javax.swing.JInternalFrame {
         jTextField3.setVisible(false);
         jTextField2.setVisible(false);
         jTextField1.setVisible(false);
+    }*/
+    public Asistencia(String user, String passwrd) {
+        initComponents();
+        userName = user;
+        password = passwrd;
+        LlenaClavesAsistencia();
+        LlenaClavesMateria();
+        LlenaRPEAsistencia();
+        Mostrar(datosAsistencia);
+        jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel6.setVisible(false);
+        jTextField3.setVisible(false);
+        jTextField2.setVisible(false);
+        jTextField1.setVisible(false);                
+
     }
 
     /**
@@ -290,7 +309,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4MouseClicked
 
     public Integer obtenAlumno(String s1,String s2){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         Integer clav=0;
         String sql = "";
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
@@ -317,7 +336,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }
     
     public Integer obtenMateria(String s1){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         String sql = "";
         Integer clavMat=0;
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
@@ -345,7 +364,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     
     
       private void insertarRegistroAsistencia(){
-            Cconexion objetoConexion = new Cconexion();
+            Cconexion objetoConexion = new Cconexion(userName, password);
             String consulta = "Insert into Aula.Asistencia(clave_unica,rpe_empleado,clavemateria) VALUES(?,?,?);";        
             try
             {               
@@ -395,7 +414,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }*/
     
       private void LlenaClavesAsistencia(){        
-            Cconexion objetoConexion = new Cconexion();       
+            Cconexion objetoConexion = new Cconexion(userName, password);       
             //incorporar modelo a la tabla
             DefaultTableModel modelo = new DefaultTableModel();
 
@@ -429,7 +448,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
       
        private void LlenaRPEAsistencia(){
         
-            Cconexion objetoConexion = new Cconexion();
+            Cconexion objetoConexion = new Cconexion(userName, password);
             //incorporar modelo a la tabla
             DefaultTableModel modelo = new DefaultTableModel();
 
@@ -464,7 +483,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
       
         private void LlenaClavesMateria(){
         
-            Cconexion objetoConexion = new Cconexion();
+            Cconexion objetoConexion = new Cconexion(userName, password);
         
             //incorporar modelo a la tabla
             DefaultTableModel modelo = new DefaultTableModel();
@@ -505,7 +524,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }
           
     public void Mostrar(JTable paramCliente){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -629,7 +648,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     
     public void EliminarAsistencia(){
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta ="DELETE FROM Aula.Asistencia WHERE Clave_Unica = ? AND RPE_EMPLEADO = ?;";
         String[] claveP = alumnoAsistencia.getSelectedItem().toString().split("-");
@@ -650,7 +669,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }
     
     public void ModificarMateria(){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta = "UPDATE Aula.Asistencia SET clave_unica = ? ,rpe_empleado = ?,clavemateria = ? WHERE Clave_Unica = ? AND clavemateria = ?;";
         //String consulta = "UPDATE persona.cliente SET nombre = '"+nombreMC+"', email ='"+emailMC+"', telefono = '"+telefonoMC+"', fechaNac = '"+fechaMC+"' WHERE id_cliente="+getIdcliente()+";";
@@ -678,7 +697,7 @@ public class Asistencia extends javax.swing.JInternalFrame {
     }
  
     public void RegistraSalida(){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         String dateTime = DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now());
            
         String consulta = "UPDATE Aula.Asistencia SET hr_salida = ? WHERE Clave_Unica = ? AND clavemateria = ?;";

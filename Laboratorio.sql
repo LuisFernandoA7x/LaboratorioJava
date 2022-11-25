@@ -142,3 +142,65 @@ CREATE TABLE Aula.Materia
 	
 	CONSTRAINT PK_CLAVEMATERIA PRIMARY KEY (ClaveMateria)	
 )
+
+--Usuarios*****************************************************************************************************************************
+CREATE USER Responsable WITH PASSWORD 'responsable';
+CREATE USER Becario WITH PASSWORD 'becario';
+CREATE USER Colaborador WITH PASSWORD 'colaborador';
+ 
+--Acceso a esquemas
+GRANT USAGE ON SCHEMA persona TO Responsable;
+GRANT USAGE ON SCHEMA persona TO Becario;
+GRANT USAGE ON SCHEMA persona TO Colaborador;
+
+GRANT USAGE ON SCHEMA Aula TO Responsable;
+GRANT USAGE ON SCHEMA Aula TO Becario;
+GRANT USAGE ON SCHEMA Aula TO Colaborador;
+
+
+--Permisos por tablas
+--Responsable
+GRANT INSERT, SELECT, UPDATE, DELETE ON persona.empleado TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON persona.responsable TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON persona.colaborador TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON persona.becario TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON persona.alumno TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Equipo TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Asistencia TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Materia TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Sancion TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Prestamo TO Responsable;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Responsable;
+
+--Becario
+GRANT SELECT ON persona.empleado TO Becario;
+GRANT SELECT ON persona.responsable TO Becario;
+GRANT SELECT ON persona.colaborador TO Becario;
+GRANT SELECT ON persona.becario TO Becario;
+GRANT SELECT ON persona.alumno TO Becario;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Equipo TO Becario;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Asistencia TO Becario;
+GRANT SELECT ON Aula.Materia TO Becario;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Sancion TO Becario;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Prestamo TO Becario;
+GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Becario;
+
+--Colaborador
+GRANT SELECT ON persona.empleado TO Colaborador;
+GRANT SELECT ON persona.responsable TO Colaborador;
+GRANT SELECT ON persona.colaborador TO Colaborador;
+GRANT SELECT ON persona.Colaborador TO Colaborador;
+GRANT SELECT ON persona.alumno TO Colaborador;
+GRANT SELECT ON Aula.Equipo TO Colaborador;
+GRANT SELECT ON Aula.Asistencia TO Colaborador;
+GRANT SELECT ON Aula.Materia TO Colaborador;
+GRANT SELECT ON Aula.Sancion TO Colaborador;
+GRANT SELECT ON Aula.Prestamo TO Colaborador;
+GRANT SELECT ON Aula.BitacoraEntrega TO Colaborador;
+
+--Use en caso de emergencia[Si no se puede borrar un usuario]
+REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA persona FROM Becario;
+REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA persona FROM Becario;
+REVOKE ALL PRIVILEGES ON SCHEMA persona FROM Becario;
+REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA aula FROM Becario;
+DROP USER Becario;

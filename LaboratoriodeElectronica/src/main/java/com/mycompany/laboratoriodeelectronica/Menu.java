@@ -5,6 +5,9 @@
  */
 package com.mycompany.laboratoriodeelectronica;
 
+import javafx.scene.control.DialogPane;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author danie
@@ -14,8 +17,17 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    private String userName;
+    private String password;
+    
     public Menu() {
         initComponents();
+    }
+    
+    public Menu(String user, String passwrd) {
+        initComponents();
+        userName=user;
+        password = passwrd;
     }
 
     /**
@@ -29,6 +41,8 @@ public class Menu extends javax.swing.JFrame {
 
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu10 = new javax.swing.JMenu();
+        jMenu11 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -58,6 +72,23 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jMenuBar1.setPreferredSize(new java.awt.Dimension(130, 24));
 
+        jMenu10.setText("Opciones");
+        jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu10MouseClicked(evt);
+            }
+        });
+
+        jMenu11.setText("Salir");
+        jMenu11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu11MouseClicked(evt);
+            }
+        });
+        jMenu10.add(jMenu11);
+
+        jMenuBar1.add(jMenu10);
+
         jMenu5.setText("Empleado");
         jMenu5.setPreferredSize(new java.awt.Dimension(80, 15));
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,9 +104,6 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenu2MousePressed(evt);
             }
         });
         jMenuBar1.add(jMenu2);
@@ -152,44 +180,36 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // TODO add your handling code here:
-        Equipo menuEquipo = new Equipo();
-        //escritorio.removeAll();
-        escritorio.add(menuEquipo);
-    }//GEN-LAST:event_jMenu2MouseClicked
-
-    private void jMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MousePressed
-        // TODO add your handling code here:
-         Equipo menuEquipo = new Equipo();
-         escritorio.removeAll();
-         //escritorio.paintAll(escritorio.getGraphics());
+        // TODO add your handling code here:        
+        Equipo menuEquipo = new Equipo(userName, password);
+        escritorio.removeAll();
         escritorio.add(menuEquipo);
         menuEquipo.show();
-    }//GEN-LAST:event_jMenu2MousePressed
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        Alumno menuAlumno=new Alumno();
+        Alumno menuAlumno=new Alumno(userName, password);
         escritorio.removeAll();
         escritorio.add(menuAlumno);        
         menuAlumno.show();
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        Materia menuMateria=new Materia();
+        Materia menuMateria=new Materia(userName, password);
         escritorio.removeAll();
         escritorio.add(menuMateria);
         menuMateria.show();
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        EmpleadoLab formEmpleado = new EmpleadoLab();
+        EmpleadoLab formEmpleado = new EmpleadoLab(userName, password);
         escritorio.removeAll();
         escritorio.add(formEmpleado);
         formEmpleado.show();
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-        Sancion formSancion = new Sancion();
+        Sancion formSancion = new Sancion(userName, password);
         escritorio.removeAll();
         escritorio.add(formSancion);
         formSancion.show();
@@ -197,7 +217,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
         // TODO add your handling code here:
-        Asistencia menuAsistencia = new Asistencia();
+        Asistencia menuAsistencia = new Asistencia(userName, password);
         escritorio.removeAll();
         escritorio.add(menuAsistencia);
         menuAsistencia.show();
@@ -205,7 +225,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
         // TODO add your handling code here:
-        Prestamo menuAsistencia = new Prestamo();
+        Prestamo menuAsistencia = new Prestamo(userName, password);
         escritorio.removeAll();
         escritorio.add(menuAsistencia);
         menuAsistencia.show();
@@ -213,11 +233,33 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
         // TODO add your handling code here:
-        BitacoraEntrega bt = new BitacoraEntrega();
+        BitacoraEntrega bt = new BitacoraEntrega(userName, password);
         escritorio.removeAll();
         escritorio.add(bt);
         bt.show();
     }//GEN-LAST:event_jMenu9MouseClicked
+
+    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu10MouseClicked
+
+    private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
+                      
+        Object[] msg = {"¿Desea salir del sistema?"};
+        int result = JOptionPane.showConfirmDialog(
+            null,
+            msg,
+            "Salir",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.YES_OPTION)
+        {
+            LoginForm login = new LoginForm();
+            this.hide();
+            login.show();
+            this.dispose();
+        }        
+    }//GEN-LAST:event_jMenu11MouseClicked
 
     /**
      * @param args the command line arguments
@@ -256,6 +298,8 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

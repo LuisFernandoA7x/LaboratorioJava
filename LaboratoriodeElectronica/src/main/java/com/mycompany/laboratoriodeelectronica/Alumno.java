@@ -17,11 +17,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Alumno extends javax.swing.JInternalFrame {
     public int claveAlumnoAntigua=0;
+    private String userName;
+    private String password;
     /**
      * Creates new form Alumno
      */
-    public Alumno() {
+    /*public Alumno() {
         initComponents();
+        Mostrar(datosAlumno);
+        jLabel5.setVisible(false);
+        adeudoAlumno.setVisible(false);
+    }*/
+    public Alumno(String user, String passwrd){
+        initComponents();
+        userName = user;
+        password = passwrd;
         Mostrar(datosAlumno);
         jLabel5.setVisible(false);
         adeudoAlumno.setVisible(false);
@@ -31,7 +41,7 @@ public class Alumno extends javax.swing.JInternalFrame {
     {
         
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         //donde se guarda la consulta 
         String consulta = "Insert into Persona.Alumno(Clave_Unica,Nombre,Generacion,Carrera,Adeudo) VALUES(?,?,?,?,?);";
         
@@ -54,7 +64,7 @@ public class Alumno extends javax.swing.JInternalFrame {
      
       public void Mostrar(JTable paramCliente)
     {
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -139,7 +149,7 @@ public class Alumno extends javax.swing.JInternalFrame {
     {
        
 
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta = "UPDATE Persona.Alumno SET Clave_Unica =?, Nombre =?, Generacion =?, Carrera =? WHERE Clave_Unica=?;";
         //String consulta = "UPDATE persona.cliente SET nombre = '"+nombreMC+"', email ='"+emailMC+"', telefono = '"+telefonoMC+"', fechaNac = '"+fechaMC+"' WHERE id_cliente="+getIdcliente()+";";
@@ -165,7 +175,7 @@ public class Alumno extends javax.swing.JInternalFrame {
     public void EliminarAlumno()
     {
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta ="DELETE FROM Persona.Alumno WHERE Clave_Unica = ?;";
         

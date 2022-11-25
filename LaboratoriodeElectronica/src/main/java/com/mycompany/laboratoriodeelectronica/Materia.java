@@ -20,8 +20,13 @@ public class Materia extends javax.swing.JInternalFrame {
     /**
      * Creates new form Materia
      */
-    public Materia() {
+    private String userName;
+    private String password;
+    
+    public Materia(String user, String passwrd) {
         initComponents();
+        userName = user;
+        password = passwrd;
         Mostrar(datosMateria);
     }
 
@@ -29,7 +34,7 @@ public class Materia extends javax.swing.JInternalFrame {
     {
         
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         //donde se guarda la consulta 
         String consulta = "Insert into Aula.Materia(clavemateria,Nombre,Nivel) VALUES(?,?,?);";
         
@@ -51,7 +56,7 @@ public class Materia extends javax.swing.JInternalFrame {
      
       public void Mostrar(JTable paramCliente)
     {
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -132,7 +137,7 @@ public class Materia extends javax.swing.JInternalFrame {
     {
        
 
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta = "UPDATE Aula.Materia SET clavemateria =?, Nombre =?, Nivel =? WHERE clavemateria=?;";
         //String consulta = "UPDATE persona.cliente SET nombre = '"+nombreMC+"', email ='"+emailMC+"', telefono = '"+telefonoMC+"', fechaNac = '"+fechaMC+"' WHERE id_cliente="+getIdcliente()+";";
@@ -158,7 +163,7 @@ public class Materia extends javax.swing.JInternalFrame {
     public void EliminarMateria()
     {
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta ="DELETE FROM Aula.Materia WHERE clavemateria = ?;";
         

@@ -24,12 +24,19 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
      * Creates new form BitacoraEntrega
      */
     private int IdPrestamo;
+    private String userName;
+    private String password;
     
-    public BitacoraEntrega() {
+    /*public BitacoraEntrega() {
         initComponents();
         mostrarVistaBitacora();
+    }*/
+    public BitacoraEntrega(String user, String passwrd) {
+        initComponents();
+        userName = user;
+        password = passwrd;
+        mostrarVistaBitacora();        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,7 +212,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         prestamoID.addItem(numInvFecha);
         prestamoID.setSelectedItem(numInvFecha);
         String sql = "SELECT Id_Prestamo FROM Aula.Prestamo WHERE NumInv ="+numInvFecha.substring(0, numInvFecha.indexOf("-"));
-        Cconexion conexion = new Cconexion();
+        Cconexion conexion = new Cconexion(userName, password);
         try{
             Statement st = conexion.establecerConexion().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -221,7 +228,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
             String[] numINV = prestamoID.getSelectedItem().toString().split("-");
             String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE numInv=" + numINV[0];
             try{
-                Cconexion conexion = new Cconexion();
+                Cconexion conexion = new Cconexion(userName, password);
                 Statement st = conexion.establecerConexion().createStatement();                               
                 ResultSet rs = st.executeQuery(cons1);
 
@@ -245,7 +252,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         String[] numInvent = prestamoID.getSelectedItem().toString().split("-");//numero inventario, fecha
         String cons1 = "Select Id_Prestamo, RPE_Empleado FROM Aula.Prestamo WHERE NumInv=" + numInvent[0];                
         
-        Cconexion conexion = new Cconexion();
+        Cconexion conexion = new Cconexion(userName, password);
         String idPrest = "";
         String rpe = "";                
         Statement st;        
@@ -292,7 +299,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void eliminarRegBitacora(){
-        Cconexion conexion = new Cconexion();
+        Cconexion conexion = new Cconexion(userName, password);
         try{
             String consulta = "DELETE FROM Aula.BitacoraEntrega WHERE Id_Prestamo=" + IdPrestamo;
             CallableStatement cs = conexion.establecerConexion().prepareCall(consulta);
@@ -316,7 +323,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         quitarSelec.setVisible(false);
     }
     private void VistaBitacora(){        
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
                 
         DefaultTableModel modelo = new DefaultTableModel();   
         modelo.addColumn("id_Préstamo");        
@@ -349,7 +356,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
         String [] datos = new String[2];
         Statement st;
         String numInvFecha="";
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         try
         {
             st = objetoConexion.establecerConexion().createStatement();
@@ -368,7 +375,7 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     }
     private void LlenaIDPrestamo()
     {       
-        Cconexion objetoConexion = new Cconexion();        
+        Cconexion objetoConexion = new Cconexion(userName, password);        
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA          
         String sql = "SELECT NumInv, FechaEntrega FROM Aula.Prestamo";
         //es un arrgelo para la longitud de la tabla (columnas)

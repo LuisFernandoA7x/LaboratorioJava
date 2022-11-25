@@ -15,28 +15,34 @@ import javax.swing.JOptionPane;
  */
 public class Cconexion {
     
-     Connection  conectar = null;
+    Connection  conectar = null;
     
-    String usuario = "postgres";
-    String contrasenia = "postgres";
-    String bd = "Laboratorio";
-    String ip = "localhost";
-    String Puerto = "5432";
+    private String usuario = "postgres";
+    private String contrasenia = "postgres";
+    private String bd = "Laboratorio";
+    private String ip = "localhost";
+    private String Puerto = "5432";
     
     String cadena = "jdbc:postgresql://"+ip+":"+Puerto+"/"+bd;
-    
+
+    public Cconexion(String user, String password){
+        usuario = user;
+        contrasenia = password;                
+    }
+    public Cconexion(){
+        
+    }
+    //mofificar constructor de conexion para que reciba por parametro el usuario y contraseña
     public Connection establecerConexion()
     {
         try
         {
             Class.forName("org.postgresql.Driver");
-            conectar = DriverManager.getConnection(cadena,usuario,contrasenia);
-            //JOptionPane.showMessageDialog(null,"Se conecto correctamente a la base de datos ");
-            
+            conectar = DriverManager.getConnection(cadena,usuario,contrasenia);            
         }
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos,"+ e.toString());
+            JOptionPane.showMessageDialog(null,"Error: Usuario o contraseña incorrectos");
         }
         return conectar;
     }

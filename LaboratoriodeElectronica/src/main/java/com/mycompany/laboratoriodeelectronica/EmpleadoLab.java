@@ -23,13 +23,22 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
      * Creates new form EmpleadoLab
      */
     private boolean indexChanged;
+    private String userName;
+    private String password;
     String RPE_Antiguo;
     int oldIndex;
-    public EmpleadoLab() {
+    /*public EmpleadoLab() {
         initComponents();
         MostrarVistaEmpleado();
         loadComponents();
-    } 
+    } */
+    public EmpleadoLab(String user, String passwrd) {
+        initComponents();
+        userName = user;
+        password = passwrd;
+        MostrarVistaEmpleado();
+        loadComponents();
+    }
     private void loadComponents(){
         quitarSelec.setVisible(false); 
         Becario.setVisible(false);
@@ -637,7 +646,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
         MostrarVistaEmpleado();        
     }//GEN-LAST:event_jButton3ActionPerformed
     private void EliminarEmpleado(){
-        Cconexion objetoConexion = new Cconexion();        
+        Cconexion objetoConexion = new Cconexion(userName, password);        
         String consulta ="DELETE FROM Persona.Empleado WHERE RPE_Empleado = ?;";        
         try
         {
@@ -651,7 +660,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
     }
     private void ModificarEmpleado(){
         
-        Cconexion conexion = new Cconexion();       
+        Cconexion conexion = new Cconexion(userName, password);       
         String consulta = "Update Persona.Empleado set RPE_Empleado=?,"
                 + " Nombre=?,Domicilio=?, Correo=?, Celular=?, EmpleadoDesde=?,"
                 + " Antiguedad=?, TipoEmpleado=?"
@@ -780,7 +789,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
     
     public void insertarEmpleado()
     {                
-        Cconexion objetoConexion = new Cconexion();        
+        Cconexion objetoConexion = new Cconexion(userName, password);        
         String consulta = "Insert into Persona.Empleado(RPE_Empleado,Nombre,Domicilio,Correo,Celular,EmpleadoDesde, Antiguedad, TipoEmpleado) VALUES(?,?,?,?,?,?,?,?);";     
         String fecha = dateToString(empleadoDesde);                        
         int antiguedad = calculaAntiguedad(empleadoDesde.getDate());        
@@ -884,7 +893,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
         Responsable.setVisible(false);
     }
     private void VistaColaborador(){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
                 
         DefaultTableModel modelo = new DefaultTableModel();                
         modelo.addColumn("RPE_Colaborador");
@@ -915,7 +924,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
         }
     }
     private void VistaResponsable(){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
                 
         DefaultTableModel modelo = new DefaultTableModel();                
         modelo.addColumn("RPE_Responsable");
@@ -948,7 +957,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
         }
     }
     private void VistaBecario(){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
                 
         DefaultTableModel modelo = new DefaultTableModel();                
         modelo.addColumn("RPE_Becario");
@@ -989,7 +998,7 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
     }
     public void Mostrar(JTable paramCliente)
     {
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
                 
         DefaultTableModel modelo = new DefaultTableModel();                
         modelo.addColumn("RPE_Empleado");

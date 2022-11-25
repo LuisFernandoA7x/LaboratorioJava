@@ -24,8 +24,12 @@ public class Sancion extends javax.swing.JInternalFrame {
     /**
      * Creates new form Sancion
      */
-    public Sancion() {
+    private String userName;
+    private String password;
+    public Sancion(String user, String passwrd) {
         initComponents();
+        userName = user;
+        password = passwrd;
         mostrarVistaSancion();
         quitarSelec.setVisible(false);
     }
@@ -270,7 +274,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     private String concatenarNombreGen(String clve){
         
         
-        Cconexion objetoConexion = new Cconexion();        
+        Cconexion objetoConexion = new Cconexion(userName, password);        
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
         String sql = "SELECT Nombre, Generacion FROM Persona.Alumno WHERE Clave_Unica=" + clve;
         //es un arrgelo para la longitud de la tabla (columnas)
@@ -296,7 +300,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     } 
     public void vistaSancion()
     {
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
                 
         DefaultTableModel modelo = new DefaultTableModel();   
         modelo.addColumn("id");
@@ -341,7 +345,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     
     private void LlenaRPESancion()
         {       
-            Cconexion objetoConexion = new Cconexion();        
+            Cconexion objetoConexion = new Cconexion(userName, password);        
            //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
             String sql = "SELECT RPE_Empleado, Nombre FROM Persona.Empleado;";
             //es un arrgelo para la longitud de la tabla (columnas)
@@ -376,7 +380,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     }
     private void LlenaClaveUnicaSancion()
         {       
-            Cconexion objetoConexion = new Cconexion();        
+            Cconexion objetoConexion = new Cconexion(userName, password);        
            //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
             String sql = "SELECT Nombre, Generacion FROM Persona.Alumno;";
             //es un arrgelo para la longitud de la tabla (columnas)
@@ -403,7 +407,7 @@ public class Sancion extends javax.swing.JInternalFrame {
             }
     }
     private void insertarSancion(){
-        Cconexion conexion = new Cconexion(); 
+        Cconexion conexion = new Cconexion(userName, password); 
         //El comboBox Item esta en formato: Nombre-Gen, String.split los separa
         String[] claveSancion = claveUnicaSancion.getSelectedItem().toString().split("-");
         String cons1 = "Select Clave_Unica FROM Persona.Alumno WHERE Nombre='" + claveSancion[0] + "' AND Generacion='" +claveSancion[1]+ "'";//revisar: concatenacion
@@ -437,7 +441,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     //si se modifica el monto de una sancion, tomar el monto anterior(sin modificar), restarselo al nuevo a insertar, eso nos dará el valor modificado
     private void modificarSancion(){
         try{
-            Cconexion conexion = new Cconexion();
+            Cconexion conexion = new Cconexion(userName, password);
             String idSancion = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),0).toString();
             
             actualizarAdeudo("update");
@@ -471,7 +475,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void actualizarAdeudo(String transaccion){
-        Cconexion conexion = new Cconexion();        
+        Cconexion conexion = new Cconexion(userName, password);        
         String[] claveSancion = claveUnicaSancion.getSelectedItem().toString().split("-");        
         String consulta, claveU = "";
         try{
@@ -537,7 +541,7 @@ public class Sancion extends javax.swing.JInternalFrame {
     private void eliminarSancion(){        
 
         String id = tablaSancion.getModel().getValueAt(tablaSancion.getSelectedRow(),0).toString();        
-        Cconexion conexion = new Cconexion();
+        Cconexion conexion = new Cconexion(userName, password);
         String claveSancion = claveUnicaSancion.getSelectedItem().toString();
         claveSancion = claveSancion.substring(claveSancion.indexOf("-"));        
         //obtener el adeudo del alumno y restarlo en la tabla alumno

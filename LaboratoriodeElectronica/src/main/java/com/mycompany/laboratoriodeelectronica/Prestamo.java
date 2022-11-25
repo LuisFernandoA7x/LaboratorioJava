@@ -20,11 +20,15 @@ public class Prestamo extends javax.swing.JInternalFrame {
      Integer ClaveAlumno=0;
     Integer ClaveEquipo=0;
     Integer rpeEmpleado=0;
+    private String userName;
+    private String password;
     /**
      * Creates new form Prestamo
      */
-    public Prestamo() {
-        initComponents();        
+    public Prestamo(String user, String passwrd) {
+        initComponents();
+        userName = user;
+        password = passwrd;
         Mostrar(datosPrestamo);
         LlenaClavesAsistencia();
         LlenaRPEAsistencia();
@@ -36,7 +40,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
     }
     private void LlenaClavesAsistencia(){
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -73,7 +77,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
       
     private void LlenaRPEAsistencia(){        
         
-        Cconexion objetoConexion = new Cconexion();        
+        Cconexion objetoConexion = new Cconexion(userName, password);        
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         
@@ -109,7 +113,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
       
     private void LlenaEquipo(){
             
-        Cconexion objetoConexion = new Cconexion();        
+        Cconexion objetoConexion = new Cconexion(userName, password);        
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
 
@@ -159,7 +163,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
              
      public void Mostrar(JTable paramCliente)
     {
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         //incorporar modelo a la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -241,7 +245,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
      
       private void insertarRegistroPrestamo()
         {
-            Cconexion objetoConexion = new Cconexion();
+            Cconexion objetoConexion = new Cconexion(userName, password);
             String consulta = "Insert into Aula.Prestamo(numinv,clave_unica,rpe_empleado) VALUES(?,?,?);";
         
             try
@@ -270,7 +274,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
         }
 
         public Integer obtenAlumno(String s1,String s2){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         Integer clav=0;
         String sql = "";
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
@@ -297,7 +301,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
     }
     
        public Integer obtenEquipo(String s1,String s2){
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         String sql = "";
         Integer clavMat=0;
         //CONSULTA PARA MOSTRAR LA INFORMACION DE LA TABLA
@@ -328,30 +332,16 @@ public class Prestamo extends javax.swing.JInternalFrame {
               
             int fila = datosPrestamo.getSelectedRow();
             if(fila >= 0)
-            {
-                //(Cliente.getValueAt(fila, 0).toString());
-                //NumInvEquipo =Integer.parseInt( Equipo.getValueAt(fila,0).toString());
+            {                                
                 idPrestamo=Integer.parseInt(datosPrestamo.getValueAt(fila,0).toString());
                 rpeEmpleado= Integer.parseInt(datosPrestamo.getModel().getValueAt(fila,3).toString());
                 ClaveAlumno=Integer.parseInt(datosPrestamo.getModel().getValueAt(fila,2).toString());
                 ClaveEquipo = Integer.parseInt(datosPrestamo.getModel().getValueAt(fila,1).toString());
+                
                 empleadoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,3).toString());
                 equipoPrestamo.addItem(datosPrestamo.getValueAt(fila,1).toString());
                 equipoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,1).toString());
                 alumnoPrestamo.setSelectedItem(datosPrestamo.getValueAt(fila,2).toString());
-                 //fechaPrestamo.setText(datosPrestamo.getValueAt(fila,4).toString());
-                 //fechaEntrega.setText(datosPrestamo.getValueAt(fila,5).toString());
-                 //fechaPrestamo.setEditable(false);
-                 //fechaEntrega.setEditable(false);
-                //ubicacionEquipo.setText(Equipo.getValueAt(fila,4).toString());
-               // marcaEquipo.setText(Equipo.getValueAt(fila,5).toString());
-                //tipoEquipo.setText(Equipo.getValueAt(fila,6).toString());
-               // tipoEquipo.setSelectedItem(Equipo.getValueAt(fila,6).toString());
-                //descripcionEquipo.setText(Equipo.getValueAt(fila,7).toString());
-                //String spl[]=Equipo.getValueAt(fila,4).toString().split("-");
-                
-                
-                //fechaSC.setDate(date1);
             }
             else 
             {
@@ -366,7 +356,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
     public void EliminarPrestamo()
     {
         
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta;
         try
@@ -389,7 +379,7 @@ public class Prestamo extends javax.swing.JInternalFrame {
             
     public void ModificarPrestamo()
     {
-        Cconexion objetoConexion = new Cconexion();
+        Cconexion objetoConexion = new Cconexion(userName, password);
         
         String consulta = "UPDATE Aula.Prestamo SET numinv = ? ,clave_unica = ?,rpe_empleado = ? WHERE Id_Prestamo = ? ;";
         //String consulta = "UPDATE persona.cliente SET nombre = '"+nombreMC+"', email ='"+emailMC+"', telefono = '"+telefonoMC+"', fechaNac = '"+fechaMC+"' WHERE id_cliente="+getIdcliente()+";";
