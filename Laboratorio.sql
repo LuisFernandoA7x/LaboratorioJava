@@ -189,7 +189,7 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Becario;
 GRANT SELECT ON persona.empleado TO Colaborador;
 GRANT SELECT ON persona.responsable TO Colaborador;
 GRANT SELECT ON persona.colaborador TO Colaborador;
-GRANT SELECT ON persona.Colaborador TO Colaborador;
+GRANT SELECT ON persona.becario TO Colaborador;
 GRANT SELECT ON persona.alumno TO Colaborador;
 GRANT SELECT ON Aula.Equipo TO Colaborador;
 GRANT SELECT ON Aula.Asistencia TO Colaborador;
