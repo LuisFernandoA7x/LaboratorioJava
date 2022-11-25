@@ -27,10 +27,6 @@ public class BitacoraEntrega extends javax.swing.JInternalFrame {
     private String userName;
     private String password;
     
-    /*public BitacoraEntrega() {
-        initComponents();
-        mostrarVistaBitacora();
-    }*/
     public BitacoraEntrega(String user, String passwrd) {
         initComponents();
         userName = user;

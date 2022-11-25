@@ -25,10 +25,7 @@ public class Equipo extends javax.swing.JInternalFrame {
      */
     private String userName;
     private String password;
-    /*public Equipo() {
-        initComponents();
-        Mostrar(datosEquipo);
-    }*/
+
     public Equipo(String user, String passwrd) {
         initComponents();
         userName = user;

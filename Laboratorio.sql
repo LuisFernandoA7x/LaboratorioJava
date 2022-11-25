@@ -160,6 +160,7 @@ GRANT USAGE ON SCHEMA Aula TO Colaborador;
 
 --Permisos por tablas
 --Responsable
+--Es el profesor encargado del laboratorio, tiene permisos de insercion/modificacion/lectura/eliminacion para toda la base de datos 
 GRANT INSERT, SELECT, UPDATE, DELETE ON persona.empleado TO Responsable;
 GRANT INSERT, SELECT, UPDATE, DELETE ON persona.responsable TO Responsable;
 GRANT INSERT, SELECT, UPDATE, DELETE ON persona.colaborador TO Responsable;
@@ -173,10 +174,9 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Prestamo TO Responsable;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Responsable;
 
 --Becario
-GRANT SELECT ON persona.empleado TO Becario;
-GRANT SELECT ON persona.responsable TO Becario;
-GRANT SELECT ON persona.colaborador TO Becario;
-GRANT SELECT ON persona.becario TO Becario;
+--Un becario puede hacer lo que un colaborador, ademas impartir sesion de laboratorio, entonces tiene acceso a registrar asistencia
+--Ademas puede registrar equipos de laboratorio, no tiene ningun permiso para ver las tablas de empleados, en Materia y Alumno 
+--solo se le otorgan permisos de lectura
 GRANT SELECT ON persona.alumno TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Equipo TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Asistencia TO Becario;
@@ -186,17 +186,11 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Prestamo TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Becario;
 
 --Colaborador
-GRANT SELECT ON persona.empleado TO Colaborador;
-GRANT SELECT ON persona.responsable TO Colaborador;
-GRANT SELECT ON persona.colaborador TO Colaborador;
-GRANT SELECT ON persona.becario TO Colaborador;
-GRANT SELECT ON persona.alumno TO Colaborador;
-GRANT SELECT ON Aula.Equipo TO Colaborador;
-GRANT SELECT ON Aula.Asistencia TO Colaborador;
-GRANT SELECT ON Aula.Materia TO Colaborador;
-GRANT SELECT ON Aula.Sancion TO Colaborador;
-GRANT SELECT ON Aula.Prestamo TO Colaborador;
-GRANT SELECT ON Aula.BitacoraEntrega TO Colaborador;
+--Un colaborador solo apoya en el area de prestamo de equipos, prestando materiales y aceptando entregas
+GRANT INSERT, SELECT, UPDATE, DELETE Aula.Sancion TO Colaborador;
+GRANT INSERT, SELECT, UPDATE, DELETE Aula.Prestamo TO Colaborador;
+GRANT INSERT, SELECT, UPDATE, DELETE Aula.BitacoraEntrega TO Colaborador;
+
 
 --Use en caso de emergencia[Si no se puede borrar un usuario]
 REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA persona FROM Becario;

@@ -27,23 +27,19 @@ public class EmpleadoLab extends javax.swing.JInternalFrame {
     private String password;
     String RPE_Antiguo;
     int oldIndex;
-    /*public EmpleadoLab() {
-        initComponents();
-        MostrarVistaEmpleado();
-        loadComponents();
-    } */
+
     public EmpleadoLab(String user, String passwrd) {
         initComponents();
         userName = user;
-        password = passwrd;
-        MostrarVistaEmpleado();
-        loadComponents();
+        password = passwrd;        
+        loadComponents();        
     }
-    private void loadComponents(){
+    private void loadComponents(){        
         quitarSelec.setVisible(false); 
         Becario.setVisible(false);
         Colaborador.setVisible(false);
-        Responsable.setVisible(false);        
+        Responsable.setVisible(false); 
+        MostrarVistaEmpleado();
     }
     /**
      * This method is called from within the constructor to initialize the form.

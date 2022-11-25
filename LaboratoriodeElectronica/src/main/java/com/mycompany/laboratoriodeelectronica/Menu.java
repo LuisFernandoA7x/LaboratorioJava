@@ -9,7 +9,7 @@ import javafx.scene.control.DialogPane;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *}
  * @author danie
  */
 public class Menu extends javax.swing.JFrame {
@@ -28,6 +28,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         userName=user;
         password = passwrd;
+        enableComponents();
     }
 
     /**
@@ -179,6 +180,18 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void enableComponents(){        
+        if(userName.equals("colaborador")){             
+            jMenu2.setVisible(false);
+            jMenu3.setVisible(false);
+            jMenu4.setVisible(false);
+            jMenu5.setVisible(false);                
+            jMenu7.setVisible(false);
+        }else if(userName.equals("becario")){                                    
+            jMenu5.setVisible(false); 
+            //falta restringir a solo vista las tablas materia y alumno
+        }
+    }
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:        
         Equipo menuEquipo = new Equipo(userName, password);

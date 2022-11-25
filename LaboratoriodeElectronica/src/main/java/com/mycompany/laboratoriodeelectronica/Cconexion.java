@@ -32,7 +32,7 @@ public class Cconexion {
     public Cconexion(){
         
     }
-    //mofificar constructor de conexion para que reciba por parametro el usuario y contraseña
+    
     public Connection establecerConexion()
     {
         try

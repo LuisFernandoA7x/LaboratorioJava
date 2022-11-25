@@ -22,12 +22,6 @@ public class Alumno extends javax.swing.JInternalFrame {
     /**
      * Creates new form Alumno
      */
-    /*public Alumno() {
-        initComponents();
-        Mostrar(datosAlumno);
-        jLabel5.setVisible(false);
-        adeudoAlumno.setVisible(false);
-    }*/
     public Alumno(String user, String passwrd){
         initComponents();
         userName = user;
@@ -35,6 +29,20 @@ public class Alumno extends javax.swing.JInternalFrame {
         Mostrar(datosAlumno);
         jLabel5.setVisible(false);
         adeudoAlumno.setVisible(false);
+        enableComponents();
+    }
+    private void enableComponents(){
+        if(userName.equals("becario")){
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+            datosAlumno.setEnabled(false);
+            claveAlumno.setEnabled(false);
+            nombreAlumno.setEnabled(false);
+            carreraAlumno.setEnabled(false);
+            generacionAlumno.setEnabled(false);
+            adeudoAlumno.setEnabled(false);
+        }
     }
 
     public void insertarAlumno()
@@ -362,12 +370,6 @@ public class Alumno extends javax.swing.JInternalFrame {
         carreraAlumno.setText("");
         adeudoAlumno.setText("");
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           insertarAlumno();           
-           Mostrar(datosAlumno);
-           clearFormAlumno();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ModificarAlumno();
         Mostrar(datosAlumno);
@@ -379,6 +381,12 @@ public class Alumno extends javax.swing.JInternalFrame {
        clearFormAlumno();
        Mostrar(datosAlumno);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        insertarAlumno();           
+        Mostrar(datosAlumno);
+        clearFormAlumno();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

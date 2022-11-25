@@ -29,19 +29,6 @@ public class Asistencia extends javax.swing.JInternalFrame {
     /**
      * Creates new form Asistencia
      */
-    /*public Asistencia() {
-        initComponents();
-        LlenaClavesAsistencia();
-        LlenaClavesMateria();
-        LlenaRPEAsistencia();
-        Mostrar(datosAsistencia);
-        jLabel4.setVisible(false);
-        jLabel5.setVisible(false);
-        jLabel6.setVisible(false);
-        jTextField3.setVisible(false);
-        jTextField2.setVisible(false);
-        jTextField1.setVisible(false);
-    }*/
     public Asistencia(String user, String passwrd) {
         initComponents();
         userName = user;

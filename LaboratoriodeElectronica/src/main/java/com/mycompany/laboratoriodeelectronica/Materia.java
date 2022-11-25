@@ -28,10 +28,20 @@ public class Materia extends javax.swing.JInternalFrame {
         userName = user;
         password = passwrd;
         Mostrar(datosMateria);
+        enableComponents();
     }
-
-     public void insertarMateria()
-    {
+    private void enableComponents(){
+        if(userName.equals("becario")){
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+            datosMateria.setEnabled(false);
+            claveMateria.setEnabled(false);
+            nombreMateria.setEnabled(false);
+            nivelMateria.setEnabled(false);
+        }
+    }
+    public void insertarMateria(){
         
         
         Cconexion objetoConexion = new Cconexion(userName, password);
