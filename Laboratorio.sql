@@ -144,6 +144,22 @@ CREATE TABLE Aula.Materia
 )
 
 --Usuarios*****************************************************************************************************************************
+--[Roles de usuario]
+--El RESPONSABLE es el profesor encargado del laboratorio, tiene permisos de lectura, insercion, 
+--actualizacion y eliminacion en todas las tablas
+
+--Un BECARIO puede hacer lo que un colaborador, tambien puede impartir sesion de laboratorio, 
+--entonces tiene permisos de insercion, actualizacion, eliminacion y lectura en la tabla Asistencia.
+--Ademas puede registrar equipos de laboratorio
+--Requiere permisos de lectura en las tablas empleado porque el hecho de modificar las demas tablas 
+--implica consultar las de empleado(Estas consultas se hacen para llenar los comboBox)
+
+--Un COLABORADOR solo apoya en el area de laboratorio, prestando materiales y aceptando entregas, 
+--ademas de agregar/eliminar sanciones
+--requiere permisos de modificacion/lectura de la tabla Alumno, porque las sanciones implican actualizar el adeudo
+--automaticamente. Igualmente requiere de permisos de lectura en las tablas de empleado, alumno y equipo 
+--para llenar los comboBox de las tablas con las que trabaja.
+
 CREATE USER Responsable WITH PASSWORD 'responsable';
 CREATE USER Becario WITH PASSWORD 'becario';
 CREATE USER Colaborador WITH PASSWORD 'colaborador';
@@ -157,10 +173,17 @@ GRANT USAGE ON SCHEMA Aula TO Responsable;
 GRANT USAGE ON SCHEMA Aula TO Becario;
 GRANT USAGE ON SCHEMA Aula TO Colaborador;
 
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA persona TO Responsable;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA persona TO Becario;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA persona TO Colaborador;
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA aula TO Responsable;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA aula TO Becario;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA aula TO Colaborador;
+
 
 --Permisos por tablas
 --Responsable
---Es el profesor encargado del laboratorio, tiene permisos de insercion/modificacion/lectura/eliminacion para toda la base de datos 
 GRANT INSERT, SELECT, UPDATE, DELETE ON persona.empleado TO Responsable;
 GRANT INSERT, SELECT, UPDATE, DELETE ON persona.responsable TO Responsable;
 GRANT INSERT, SELECT, UPDATE, DELETE ON persona.colaborador TO Responsable;
@@ -174,9 +197,6 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Prestamo TO Responsable;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Responsable;
 
 --Becario
---Un becario puede hacer lo que un colaborador, ademas impartir sesion de laboratorio, entonces tiene acceso a registrar asistencia
---Ademas puede registrar equipos de laboratorio, no tiene ningun permiso para ver las tablas de empleados, en Materia y Alumno 
---solo se le otorgan permisos de lectura
 GRANT SELECT ON persona.alumno TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Equipo TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Asistencia TO Becario;
@@ -184,17 +204,20 @@ GRANT SELECT ON Aula.Materia TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Sancion TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.Prestamo TO Becario;
 GRANT INSERT, SELECT, UPDATE, DELETE ON Aula.BitacoraEntrega TO Becario;
+GRANT SELECT ON persona.empleado TO Becario;
+GRANT SELECT ON persona.responsable TO Becario;
+GRANT SELECT ON persona.colaborador TO Becario;
+GRANT SELECT ON persona.becario TO Becario;
 
 --Colaborador
---Un colaborador solo apoya en el area de prestamo de equipos, prestando materiales y aceptando entregas
 GRANT INSERT, SELECT, UPDATE, DELETE Aula.Sancion TO Colaborador;
 GRANT INSERT, SELECT, UPDATE, DELETE Aula.Prestamo TO Colaborador;
 GRANT INSERT, SELECT, UPDATE, DELETE Aula.BitacoraEntrega TO Colaborador;
+GRANT SELECT, UPDATE persona.Alumno
+GRANT SELECT ON persona.empleado TO Colaborador;
+GRANT SELECT ON persona.responsable TO Colaborador;
+GRANT SELECT ON persona.colaborador TO Colaborador;
+GRANT SELECT ON persona.becario TO Colaborador;
+GRANT SELECT ON persona.alumno TO Colaborador;
+GRANT SELECT ON Aula.Equipo TO Colaborador;
 
-
---Use en caso de emergencia[Si no se puede borrar un usuario]
-REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA persona FROM Becario;
-REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA persona FROM Becario;
-REVOKE ALL PRIVILEGES ON SCHEMA persona FROM Becario;
-REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA aula FROM Becario;
-DROP USER Becario;
