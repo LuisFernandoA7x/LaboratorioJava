@@ -89,6 +89,16 @@ CREATE TABLE Aula.Equipo
 
 )
 
+CREATE TABLE Aula.Asistencia
+(
+    clave_unica bigint NOT NULL,
+    rpe_empleado bigint NOT NULL,
+    clavemateria bigint NOT NULL,
+    fecha date,
+    hr_entrada time without time zone,
+    hr_salida time without time zone
+)
+
 CREATE TABLE Aula.Sancion
 (
 	id BIGSERIAL NOT NULL,
